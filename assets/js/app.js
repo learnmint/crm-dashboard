@@ -110,3 +110,4 @@ function getFollowups(){
     followupList.innerHTML=d.map(r=>`<li>${r[1]} - ${r[2]}</li>`).join("");
   });
 }
+
