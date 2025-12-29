@@ -1,9 +1,11 @@
 const API = "https://script.google.com/macros/s/AKfycbwsPolAAlxfGPjxefx2b2OTQ3SY27_6jmEZnazITPZ7LEFsZSbfE1TRndF1Hcp2ycWD/exec";
 
+/* Load sidebar safely */
 fetch("components/sidebar.html")
-  .then(r=>r.text())
-  .then(t=>document.getElementById("sidebar")?.innerHTML=t);
+  .then(r => r.text())
+  .then(t => document.getElementById("sidebar")?.innerHTML = t);
 
+/* LOGIN */
 function login(){
   const emailEl = document.getElementById("email");
   const passwordEl = document.getElementById("password");
@@ -18,6 +20,9 @@ function login(){
 
   fetch(API,{
     method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
     body: JSON.stringify({
       action: "login",
       email: emailEl.value.trim(),
@@ -32,7 +37,7 @@ function login(){
       sessionStorage.setItem("team", d.team);
       location.href = "dashboard.html";
     } else {
-      msg.innerText = "Invalid email or password";
+      msg.innerText = d.error || "Invalid email or password";
     }
   })
   .catch(err => {
@@ -41,10 +46,13 @@ function login(){
   });
 }
 
-
+/* GENERIC API CALL */
 function api(action,data={}){
   return fetch(API,{
     method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
     body:JSON.stringify({
       action,
       token:sessionStorage.getItem("token"),
@@ -53,6 +61,7 @@ function api(action,data={}){
   }).then(r=>r.json());
 }
 
+/* DASHBOARD */
 function loadKPIs(){
   api("getDashboardKPIs").then(d=>{
     leads.innerText="Leads: "+d.leads;
@@ -61,6 +70,7 @@ function loadKPIs(){
   });
 }
 
+/* LEADS */
 function addLead(){
   api("addLead",{name:name.value,phone:phone.value}).then(()=>getLeads());
 }
@@ -71,6 +81,7 @@ function getLeads(){
   });
 }
 
+/* PAYMENTS */
 function createPayment(){
   api("createPaymentLink",{
     customer:customer.value,
@@ -85,6 +96,7 @@ function getPayments(){
   });
 }
 
+/* FOLLOW UPS */
 function addFollowup(){
   api("addFollowup",{
     lead:lead.value,
@@ -98,4 +110,3 @@ function getFollowups(){
     followupList.innerHTML=d.map(r=>`<li>${r[1]} - ${r[2]}</li>`).join("");
   });
 }
-
