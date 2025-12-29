@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payments</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="app">
+  <div id="sidebar"></div>
+
+  <main class="main">
+    <h2>Payments</h2>
+
+    <input id="customer" placeholder="Customer">
+    <input id="amount" placeholder="Amount">
+    <button onclick="createPayment()">Create Payment Link</button>
+
+    <table id="paymentsTable"></table>
+  </main>
+</div>
+
+<script src="assets/js/app.js"></script>
+<script>getPayments();</script>
+</body>
+</html>

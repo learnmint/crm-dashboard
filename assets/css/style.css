@@ -1,0 +1,40 @@
+body {
+  margin:0;
+  font-family: Arial;
+  background:#0b1220;
+  color:#fff;
+}
+
+.app { display:flex; }
+.main { padding:20px; flex:1; }
+
+.login-body {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.login-card {
+  background:#111827;
+  padding:30px;
+  border-radius:10px;
+}
+
+input, button {
+  display:block;
+  margin:10px 0;
+  padding:10px;
+}
+
+.cards {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.card {
+  background:#1e293b;
+  padding:20px;
+  border-radius:10px;
+}

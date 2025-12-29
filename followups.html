@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Follow-ups</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="app">
+  <div id="sidebar"></div>
+
+  <main class="main">
+    <h2>Follow-ups</h2>
+
+    <input id="lead" placeholder="Lead Name">
+    <input id="note" placeholder="Note">
+    <input id="date" type="datetime-local">
+    <button onclick="addFollowup()">Add Follow-up</button>
+
+    <ul id="followupList"></ul>
+  </main>
+</div>
+
+<script src="assets/js/app.js"></script>
+<script>getFollowups();</script>
+</body>
+</html>
