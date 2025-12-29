@@ -1,3 +1,4 @@
+
 const API = "https://script.google.com/macros/s/AKfycbwsPolAAlxfGPjxefx2b2OTQ3SY27_6jmEZnazITPZ7LEFsZSbfE1TRndF1Hcp2ycWD/exec";
 
 /* Load sidebar safely */
@@ -7,6 +8,7 @@ fetch("components/sidebar.html")
 
 /* LOGIN */
 function login(){
+  console.log("LOGIN CLICKED");
   const emailEl = document.getElementById("email");
   const passwordEl = document.getElementById("password");
   const msg = document.getElementById("msg");
@@ -110,4 +112,8 @@ function getFollowups(){
     followupList.innerHTML=d.map(r=>`<li>${r[1]} - ${r[2]}</li>`).join("");
   });
 }
-
+window.login = login;
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("loginBtn");
+  if (btn) btn.addEventListener("click", login);
+});
