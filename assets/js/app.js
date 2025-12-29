@@ -11,42 +11,36 @@ fetch("components/sidebar.html")
 /* LOGIN */
 function login(){
   console.log("LOGIN CLICKED");
-  const emailEl = document.getElementById("email");
-  const passwordEl = document.getElementById("password");
-  const msg = document.getElementById("msg");
 
-  if(!emailEl || !passwordEl){
-    alert("Email or Password field missing");
-    return;
-  }
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const msg = document.getElementById("msg");
 
   msg.innerText = "Logging in...";
 
-  fetch(API,{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body: JSON.stringify({
-      action: "login",
-      email: emailEl.value.trim(),
-      password: passwordEl.value
-    })
+  const formData = new URLSearchParams();
+  formData.append("action", "login");
+  formData.append("email", email);
+  formData.append("password", password);
+
+  fetch(API, {
+    method: "POST",
+    body: formData   // 👈 NO HEADERS
   })
   .then(r => r.json())
   .then(d => {
-    if(d.success){
+    if (d.success) {
       sessionStorage.setItem("token", d.token);
       sessionStorage.setItem("role", d.role);
       sessionStorage.setItem("team", d.team);
       location.href = "dashboard.html";
     } else {
-      msg.innerText = d.error || "Invalid email or password";
+      msg.innerText = d.error || "Invalid login";
     }
   })
   .catch(err => {
     console.error(err);
-    msg.innerText = "Server error. Check console.";
+    msg.innerText = "Server error";
   });
 }
 
@@ -119,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("loginBtn");
   if (btn) btn.addEventListener("click", login);
 });
+
 
 
 
