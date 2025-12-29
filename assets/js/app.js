@@ -1,10 +1,12 @@
-
 const API = "https://script.google.com/macros/s/AKfycbwsPolAAlxfGPjxefx2b2OTQ3SY27_6jmEZnazITPZ7LEFsZSbfE1TRndF1Hcp2ycWD/exec";
 
 /* Load sidebar safely */
 fetch("components/sidebar.html")
   .then(r => r.text())
-  .then(t => document.getElementById("sidebar")?.innerHTML = t);
+  .then(t => {
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar) sidebar.innerHTML = t;
+  });
 
 /* LOGIN */
 function login(){
@@ -117,3 +119,4 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("loginBtn");
   if (btn) btn.addEventListener("click", login);
 });
+
